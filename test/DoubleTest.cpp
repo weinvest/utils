@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(PositiveNifinityTest)
    // jetbrains::teamcity::TeamcityGlobalFixture();
    double posInf = Double::PositiveInfinity();
    std::cout<<"positive infinity:"<<posInf<<std::endl;
-   BOOST_CHECK(0 == memcmp(&posInf,&Double::_POSITIVE_INFINITY,sizeof(double)));
+   BOOST_CHECK(0 == memcmp(&posInf,&Double::POSITIVE_INFINITY_BIT,sizeof(double)));
    BOOST_CHECK(Double::IsPositiveInfinity(posInf));
    BOOST_CHECK(Double::IsInfinity(posInf));
 }
@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(NegativeInfinityTest)
     double negInf = Double::NegativeInfinity();
     std::cout<<"negative infinity:"<<negInf<<std::endl;
 
-    BOOST_CHECK(0 == memcmp(&negInf,&Double::_NEGATIVE_INFINITY,sizeof(double)));
+    BOOST_CHECK(0 == memcmp(&negInf,&Double::NEGATIVE_INFINITY_BIT,sizeof(double)));
     BOOST_CHECK(Double::IsNegativeInfinity(negInf));
     BOOST_CHECK(Double::IsInfinity(negInf));
 }
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(MaxValueTest)
 {
     double maxValue = Double::MaxValue();
     std::cout<<"max value:"<<maxValue<<std::endl;
-    BOOST_CHECK(0 == memcmp(&maxValue,&Double::_MAX_VALUE,sizeof(double)));
+    BOOST_CHECK(0 == memcmp(&maxValue,&Double::MAX_VALUE_BIT,sizeof(double)));
     BOOST_CHECK(Double::IsMaxValue(maxValue));
 }
 
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(MinValueTest)
     double minValue = Double::MinValue();
     std::cout<<"min value:"<<minValue<<std::endl;
 
-    BOOST_CHECK(0 == memcmp(&minValue,&Double::_MIN_VALUE,sizeof(double)));
+    BOOST_CHECK(0 == memcmp(&minValue,&Double::MIN_VALUE_BIT,sizeof(double)));
     BOOST_CHECK(Double::IsMinValue(minValue));
 }
 
@@ -52,29 +52,8 @@ BOOST_AUTO_TEST_CASE(NaNTest)
     double nan = Double::NaN();
     std::cout<<"nan:"<<nan<<std::endl;
 
-    BOOST_CHECK(0 == memcmp(&nan,&Double::_NaN,sizeof(double)));
+    BOOST_CHECK(0 == memcmp(&nan,&Double::NaN_BIT,sizeof(double)));
     BOOST_CHECK(Double::IsNaN(nan));
-}
-
-BOOST_AUTO_TEST_CASE(IsValidTest)
-{
-    double posInf = Double::PositiveInfinity();
-    BOOST_CHECK(!Double::IsValid(posInf));
-
-    double negInf = Double::NegativeInfinity();
-    BOOST_CHECK(!Double::IsValid(negInf));
-
-    double maxValue = Double::MaxValue();
-    BOOST_CHECK(!Double::IsValid(maxValue));
-
-    double minValue = Double::MinValue();
-    BOOST_CHECK(!Double::IsValid(minValue));
-
-    double nan = Double::NaN();
-    BOOST_CHECK(!Double::IsValid(nan));
-
-    double d = 0.3;
-    BOOST_CHECK(Double::IsValid(d));
 }
 
 BOOST_AUTO_TEST_CASE(EqualTest)

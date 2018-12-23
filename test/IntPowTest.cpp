@@ -25,10 +25,10 @@ BOOST_AUTO_TEST_CASE(IntPow_Test)
     BOOST_TEST((Double::Equal(IntPow<3,double>::GetValue(v1), v3)));
     BOOST_TEST((Double::Equal(IntPow<4,double>::GetValue(v1), v4)));
     BOOST_TEST((Double::Equal(IntPow<5,double>::GetValue(v1), v5)));
-    BOOST_TEST((Double::Equal(IntPow<6,double>::GetValue(v1), v6)));
-    BOOST_TEST((Double::Equal(IntPow<7,double>::GetValue(v1), v7)));
-    BOOST_TEST((Double::Equal(IntPow<8,double>::GetValue(v1), v8)));
-    BOOST_TEST((Double::Equal(IntPow<9,double>::GetValue(v1), v9)));
+    BOOST_TEST((Double::Equal(IntPow<6,double>::GetValue(v1), v6, 1e-14, 0.0)));
+    BOOST_TEST((Double::Equal(IntPow<7,double>::GetValue(v1), v7, 1e-14, 0.0)));
+    BOOST_TEST((Double::Equal(IntPow<8,double>::GetValue(v1), v8, 1e-14, 0.0)));
+    BOOST_TEST((Double::Equal(IntPow<9,double>::GetValue(v1), v9, 1e-14, 0.0)));
 
     std::cout << std::setprecision(20) << "v6:" << v6 <<"\nv7:" << v7 << "\nv9:"<<v9 << std::endl;
     std::cout << std::setprecision(20) << "p6:" << IntPow<6,double>::GetValue(v1) << std::endl;
