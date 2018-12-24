@@ -227,7 +227,7 @@ public:
     static int32_t Round(double v);
     static BOOST_FORCEINLINE int32_t Round(double v, int nanValue)
     {
-        return IsNaN(v) ? nanValue : Round(v);
+        return BOOST_UNLIKELY(IsNaN(v)) ? nanValue : Round(v);
     }
 
     static double Parse(const std::string& v);

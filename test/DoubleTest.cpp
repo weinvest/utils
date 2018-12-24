@@ -2,6 +2,9 @@
 #ifndef _WIN32
 #define BOOST_TEST_DYN_LINK
 #endif
+#include <random>
+#include <valarray>
+#include <boost/timer/timer.hpp>
 
 #include <boost/test/unit_test.hpp>
 #include <boost/make_shared.hpp>
@@ -222,5 +225,36 @@ BOOST_AUTO_TEST_CASE(LessEqualTest)
     BOOST_TEST(Double::LessEqual(3.2, 3.249999999, tickSize));
     BOOST_TEST(Double::LessEqual(3.2, 3.250000001, tickSize));
     BOOST_TEST(Double::LessEqual(3.2, 3.26, tickSize));
+}
+
+BOOST_AUTO_TEST_CASE(AbsSpeadTest)
+{
+    static constexpr int32_t MAX_SAMPLE_COUNT = 1000000;
+    std::default_random_engine gen;
+    std::uniform_real_distribution<double> realUni(-1000.0, 1000.0);
+    std::valarray<double> samples(MAX_SAMPLE_COUNT);
+    std::valarray<double> result1(MAX_SAMPLE_COUNT);
+    std::valarray<double> result2(MAX_SAMPLE_COUNT);
+
+    for(int32_t iSample = 0; iSample < MAX_SAMPLE_COUNT; ++iSample)
+    {
+        samples[iSample] = realUni(gen);
+    }
+
+    {
+        boost::timer::auto_cpu_timer t("std::abs consume %t sec CPU, %w sec real, %u sec user\n");
+        for(int32_t iSample = 0; iSample < MAX_SAMPLE_COUNT; ++iSample)
+        {
+            result2[iSample] = std::abs(samples[iSample]);
+        }
+    }
+    
+    {
+        boost::timer::auto_cpu_timer t("Double::Abs consume %t sec CPU, %w sec real, %u sec user\n");
+        for(int32_t iSample = 0; iSample < MAX_SAMPLE_COUNT; ++iSample)
+        {
+            result1[iSample] = Double::Abs(samples[iSample]);
+        }
+    }
 }
 BOOST_AUTO_TEST_SUITE_END()
