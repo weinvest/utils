@@ -227,6 +227,18 @@ BOOST_AUTO_TEST_CASE(LessEqualTest)
     BOOST_TEST(Double::LessEqual(3.2, 3.26, tickSize));
 }
 
+BOOST_AUTO_TEST_CASE(SignTest)
+{
+    double neg(-1.8), posi(1.9), inf(Double::PositiveInfinity());
+    double ninf(Double::NegativeInfinity()), nan(Double::NaN());
+    BOOST_TEST(-1.0 == Double::Sign(neg));
+    BOOST_TEST(1.0 == Double::Sign(posi));
+    BOOST_TEST(1.0 == Double::Sign(inf));
+    BOOST_TEST(-1.0 == Double::Sign(ninf));
+    BOOST_TEST(1.0 == Double::Sign(nan));
+    BOOST_TEST(0.0 == Double::Sign(0.0));
+}
+
 BOOST_AUTO_TEST_CASE(AbsSpeadTest)
 {
     static constexpr int32_t MAX_SAMPLE_COUNT = 1000000;
@@ -248,7 +260,7 @@ BOOST_AUTO_TEST_CASE(AbsSpeadTest)
             result2[iSample] = std::abs(samples[iSample]);
         }
     }
-    
+
     {
         boost::timer::auto_cpu_timer t("Double::Abs consume %t sec CPU, %w sec real, %u sec user\n");
         for(int32_t iSample = 0; iSample < MAX_SAMPLE_COUNT; ++iSample)
